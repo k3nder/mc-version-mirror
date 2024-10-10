@@ -9,9 +9,8 @@ if [[ -f $archivo ]]; then
 
 	./mclr $linea
 	
-	gh release upload versions $linea.tar.gz
-
-	rm "$linea.tar.gz"
+	 gh release upload versions "$linea.tar.gz"
+	 rm "$linea.tar.gz"
 
     done < "$archivo"
 else
