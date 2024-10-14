@@ -11,12 +11,12 @@ if [[ -f $archivo ]]; then
         vanilla=$?
 
         if [ $vanilla -eq 0 ]; then
-            ./mclr-cli download $linea --package "$linea.tar.gz" --no-client --main-file
+            ./mclr-cli download $linea --package "$linea.tar.gz" --no-client --main-file --path ".downloads"
         else
-            ./mclr-cli download $linea --package "$linea.tar.gz" --no-client --main-file --meta "./.customs/$linea.json"
+            ./mclr-cli download $linea --package "$linea.tar.gz" --no-client --main-file --meta "./.customs/$linea.json" --path ".downloads"
         fi
-        #gh release upload versions "$linea.tar.gz"
-        #rm "$linea.tar.gz"
+        gh release upload versions "$linea.tar.gz"
+        rm "$linea.tar.gz"
 
     done < "$archivo"
 else
