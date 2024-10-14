@@ -7,10 +7,16 @@ if [[ -f $archivo ]]; then
     while IFS= read -r linea; do
         echo "Index version: $linea"
 
-	./mclr $linea
-	
-	 gh release upload versions "$linea.tar.gz"
-	 rm "$linea.tar.gz"
+        ./mclr-cli vanilla "$linea"
+        vanilla=$?
+
+        if [ $vanilla -eq 0 ]; then
+            ./mclr-cli download $linea --package "$linea.tar.gz" --no-client --main-file
+        else
+            ./mclr-cli download $linea --package "$linea.tar.gz" --no-client --main-file --meta "./.customs/$linea.json"
+        fi
+        #gh release upload versions "$linea.tar.gz"
+        #rm "$linea.tar.gz"
 
     done < "$archivo"
 else
